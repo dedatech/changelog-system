@@ -39,6 +39,50 @@
 - **编辑器**: [TipTap](https://tiptap.dev/)
 - **部署**: 静态导出 (Static Export)
 
+### 📸 截图预览
+
+#### 前台展示
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/01-homepage.png" alt="首页" width="400"/></td>
+    <td><img src="docs/screenshots/07-homepage-dark-mode.png" alt="暗色主题" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center">亮色主题</td>
+    <td align="center">暗色主题</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/09-homepage-mobile-light.png" alt="移动端亮色" width="200"/></td>
+    <td><img src="docs/screenshots/08-homepage-mobile-dark.png" alt="移动端暗色" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center">移动端（亮色）</td>
+    <td align="center">移动端（暗色）</td>
+  </tr>
+</table>
+
+#### 后台管理
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/02-login-page.png" alt="登录页" width="400"/></td>
+    <td><img src="docs/screenshots/03-admin-dashboard.png" alt="管理后台" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center">登录页</td>
+    <td align="center">版本列表</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/04-version-editor.png" alt="版本编辑器" width="400"/></td>
+    <td><img src="docs/screenshots/05-config-page.png" alt="配置页面" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center">Markdown 编辑器</td>
+    <td align="center">系统配置</td>
+  </tr>
+</table>
+
 ### 📦 安装
 
 ```bash
