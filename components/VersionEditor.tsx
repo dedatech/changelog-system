@@ -728,6 +728,7 @@ function ListItem({ item }: { item: { id: string; text: string; children?: Array
                 alt={part.content}
                 className="max-w-full h-auto rounded-lg my-1 inline-block"
                 style={{ maxHeight: '200px' }}
+                loading="lazy"
               />
             );
           }

@@ -21,6 +21,16 @@ const nextConfig = {
     } : false,
   },
 
+  // 生产环境优化
+  ...(process.env.NODE_ENV === 'production' && {
+    // 启用 React 严格模式
+    reactStrictMode: true,
+    // 压缩代码
+    compress: true,
+    // 生成静态文件时使用 production 模式
+    generateBuildId: () => 'build',
+  }),
+
   // CORS 配置
   async headers() {
     return [
