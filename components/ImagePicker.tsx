@@ -80,7 +80,7 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
             placeholder="搜索图片..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
           />
         </div>
 
@@ -156,7 +156,7 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
               value={altText}
               onChange={(e) => setAltText(e.target.value)}
               placeholder="例如：功能截图"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
             />
           </div>
         )}

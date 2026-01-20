@@ -75,7 +75,7 @@ export default function ConfigPage() {
       const data = await response.json();
 
       if (data.success) {
-        alert('配置已保存！需要重新编译才能生效。');
+        alert('配置已保存！刷新页面即可生效。');
       } else {
         alert('保存失败: ' + data.error);
       }
@@ -131,10 +131,10 @@ export default function ConfigPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
-          <p className="text-gray-500 mt-4">加载中...</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-4">加载中...</p>
         </div>
       </div>
     );
@@ -142,24 +142,24 @@ export default function ConfigPage() {
 
   if (!config) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <span className="text-6xl">⚠️</span>
-          <p className="text-gray-500 mt-4 text-lg">加载配置失败</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-4 text-lg">加载配置失败</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">系统配置</h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">系统配置</h1>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 管理站点信息、产品类型和显示设置
               </p>
             </div>
@@ -167,7 +167,7 @@ export default function ConfigPage() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >
                 返回
               </button>
@@ -185,14 +185,14 @@ export default function ConfigPage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* 站点信息 */}
-        <section className="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <span className="text-2xl">🌐</span>
             站点信息
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 站点标题
               </label>
               <input
@@ -204,12 +204,12 @@ export default function ConfigPage() {
                     site: { ...config.site, title: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 站点描述（Slogan）
               </label>
               <input
@@ -221,12 +221,12 @@ export default function ConfigPage() {
                     site: { ...config.site, description: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 域名
               </label>
               <input
@@ -238,12 +238,12 @@ export default function ConfigPage() {
                     site: { ...config.site, domain: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Logo 路径
               </label>
               <input
@@ -255,21 +255,21 @@ export default function ConfigPage() {
                     site: { ...config.site, logo: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
           </div>
         </section>
 
         {/* 管理员账号 */}
-        <section className="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <span className="text-2xl">🔐</span>
             管理员账号
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 用户名
               </label>
               <input
@@ -281,12 +281,12 @@ export default function ConfigPage() {
                     admin: { ...config.admin, username: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 密码
               </label>
               <input
@@ -298,17 +298,17 @@ export default function ConfigPage() {
                     admin: { ...config.admin, password: e.target.value },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
-              <p className="text-xs text-gray-500 mt-1">⚠️ 密码将以明文保存在配置文件中，请使用强密码</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">⚠️ 密码将以明文保存在配置文件中，请使用强密码</p>
             </div>
           </div>
         </section>
 
         {/* 产品类型管理 */}
-        <section className="bg-white rounded-lg border border-gray-200 p-6">
+        <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
               <span className="text-2xl">📦</span>
               产品类型
             </h2>
@@ -324,7 +324,7 @@ export default function ConfigPage() {
             {config.products.map((product) => (
               <div
                 key={product.id}
-                className="border border-gray-200 rounded-lg p-4 space-y-3"
+                className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -334,9 +334,9 @@ export default function ConfigPage() {
                       onChange={(e) =>
                         updateProduct(product.id, 'icon', e.target.value)
                       }
-                      className="w-12 text-center px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-12 text-center px-2 py-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                     />
-                    <span className="text-gray-500">图标</span>
+                    <span className="text-gray-500 dark:text-gray-400">图标</span>
                   </div>
                   <button
                     onClick={() => deleteProduct(product.id)}
@@ -357,7 +357,7 @@ export default function ConfigPage() {
                       onChange={(e) =>
                         updateProduct(product.id, 'id', e.target.value)
                       }
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
@@ -370,7 +370,7 @@ export default function ConfigPage() {
                       onChange={(e) =>
                         updateProduct(product.id, 'name', e.target.value)
                       }
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -386,7 +386,7 @@ export default function ConfigPage() {
                       onChange={(e) =>
                         updateProduct(product.id, 'label', e.target.value)
                       }
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
@@ -399,7 +399,7 @@ export default function ConfigPage() {
                       onChange={(e) =>
                         updateProduct(product.id, 'order', parseInt(e.target.value))
                       }
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -412,9 +412,9 @@ export default function ConfigPage() {
                     onChange={(e) =>
                       updateProduct(product.id, 'enabled', e.target.checked)
                     }
-                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                    className="rounded border-gray-300 dark:border-gray-600 text-purple-600 focus:ring-purple-500 focus:ring-offset-0 dark:focus:ring-offset-gray-800"
                   />
-                  <label htmlFor={`enabled-${product.id}`} className="text-sm text-gray-700">
+                  <label htmlFor={`enabled-${product.id}`} className="text-sm text-gray-700 dark:text-gray-300">
                     启用
                   </label>
                 </div>
@@ -424,14 +424,14 @@ export default function ConfigPage() {
         </section>
 
         {/* 显示设置 */}
-        <section className="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <span className="text-2xl">⚙️</span>
             显示设置
           </h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 每页显示版本数
               </label>
               <input
@@ -446,12 +446,12 @@ export default function ConfigPage() {
                     },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 日期格式
               </label>
               <select
@@ -465,20 +465,20 @@ export default function ConfigPage() {
                     },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none transition-colors"
               >
-                <option value="YYYY-MM-DD">YYYY-MM-DD (2026-01-19)</option>
-                <option value="YYYY年MM月DD日">YYYY年MM月DD日 (2026年01月19日)</option>
+                <option value="YYYY-MM-DD" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">YYYY-MM-DD (2026-01-19)</option>
+                <option value="YYYY年MM月DD日" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">YYYY年MM月DD日 (2026年01月19日)</option>
               </select>
             </div>
           </div>
         </section>
 
         {/* 说明 */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-blue-900 mb-2">💡 提示</h3>
-          <ul className="text-xs text-blue-800 space-y-1">
-            <li>• 保存配置后需要重新编译前端才能生效（运行 npm run build）</li>
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 提示</h3>
+          <ul className="text-xs text-blue-800 dark:text-blue-200 space-y-1">
+            <li>• 配置保存后刷新页面即可立即生效 ✨</li>
             <li>• 产品 ID 必须唯一，用于内部标识</li>
             <li>• 排序数字越小越靠前</li>
             <li>• Logo 默认放在 public 目录下</li>

@@ -256,16 +256,16 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {versionId ? '编辑版本' : '新建版本'}
               </h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {versionId ? '编辑版本信息' : '创建新的更新日志'}
               </p>
             </div>
@@ -273,14 +273,14 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >
                 取消
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors shadow-md hover:shadow-lg"
               >
                 {saving ? '保存中...' : '保存'}
               </button>
@@ -291,11 +291,11 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* 左侧：预览区 */}
-          <div className="lg:sticky lg:top-8 lg:self-start">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+          {/* 右侧：预览区 */}
+          <div className="lg:sticky lg:top-24 lg:self-start order-2 lg:order-2 z-10">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">预览</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">预览</h2>
                 {/* 设备切换 */}
                 <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
                   <button
@@ -359,36 +359,44 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
             </div>
           </div>
 
-          {/* 右侧：编辑区 */}
-          <div className="space-y-6">
+          {/* 左侧：编辑区 */}
+          <div className="space-y-6 order-1 lg:order-1">
             {/* 基本信息 */}
-            <section className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
                 基本信息
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     产品 *
                   </label>
-                  <select
-                    value={formData.product}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        product: e.target.value as ProductType,
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    <option value="IDE">IDE</option>
-                    <option value="JetBrains">JetBrains</option>
-                    <option value="CLI">CLI</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.product}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          product: e.target.value as ProductType,
+                        })
+                      }
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none appearance-none cursor-pointer transition-colors hover:border-purple-400 dark:hover:border-purple-500"
+                    >
+                      <option value="IDE" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">IDE</option>
+                      <option value="JetBrains" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">JetBrains</option>
+                      <option value="CLI" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">CLI</option>
+                    </select>
+                    {/* 自定义下拉图标 */}
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg className="w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     版本号 *
                   </label>
                   <input
@@ -398,13 +406,13 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
                       setFormData({ ...formData, version: e.target.value })
                     }
                     placeholder="1.0.0"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     标题 *
                   </label>
                   <input
@@ -414,7 +422,7 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
                       setFormData({ ...formData, title: e.target.value })
                     }
                     placeholder="例如：新增数据库关联和指令能力"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -422,13 +430,32 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
             </section>
 
             {/* Markdown编辑器 */}
-            <section className="bg-white rounded-lg border border-gray-200 p-6">
+            <section className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   更新内容 (Markdown)
                 </h2>
-                <div className="text-xs text-gray-500">
-                  使用 ## 标题，- 列表，支持缩进子项
+                <div className="relative group inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg cursor-help transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-500">
+                  <svg className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731 1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-xs text-gray-600 dark:text-gray-400 select-none">
+                    使用 ## 标题，- 列表，支持缩进子项
+                  </span>
+                  {/* 悬浮提示 */}
+                  <div className="absolute left-0 top-full mt-2 w-80 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-xs rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <h4 className="font-semibold mb-2 text-sm">Markdown 格式说明：</h4>
+                    <ul className="space-y-1.5">
+                      <li>• 使用 <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 rounded">## 特性</code> 或 <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 rounded">## feature</code> 表示分类</li>
+                      <li>• 使用 <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 rounded">- 内容</code> 表示一级列表项</li>
+                      <li>• 使用 <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 rounded">  - 子内容</code>（2空格缩进）表示二级列表项</li>
+                      <li>• 支持的分类：特性/优化/修复 或 feature/improvement/fix</li>
+                      <li>• 图片：<code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 text-purple-600 dark:text-purple-400 rounded">- 描述 ![图片说明](/uploads/xxx.jpg)</code></li>
+                      <li className="text-orange-600 dark:text-orange-400">⚠️ 图片必须放在列表项中，如：<code>- 文字 ![图片](url)</code></li>
+                    </ul>
+                    {/* 小箭头 */}
+                    <div className="absolute -top-1 left-6 w-2 h-2 bg-white dark:bg-gray-800 border-l border-t border-gray-200 dark:border-gray-700 transform rotate-45"></div>
+                  </div>
                 </div>
               </div>
 
@@ -549,21 +576,9 @@ export function VersionEditor({ versionId, initialData }: VersionEditorProps) {
 
 ## 修复
 - 修复的问题`}
-                className="w-full h-96 px-4 py-3 font-mono text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                className="w-full h-96 px-4 py-3 font-mono text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:border-purple-500 focus:outline-none resize-none"
                 spellCheck={false}
               />
-
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-700 mb-2">Markdown格式说明：</h3>
-                <ul className="text-xs text-gray-600 space-y-1">
-                  <li>• 使用 <code className="px-1 py-0.5 bg-gray-200 rounded">## 特性</code> 或 <code className="px-1 py-0.5 bg-gray-200 rounded">## feature</code> 表示分类</li>
-                  <li>• 使用 <code className="px-1 py-0.5 bg-gray-200 rounded">- 内容</code> 表示一级列表项</li>
-                  <li>• 使用 <code className="px-1 py-0.5 bg-gray-200 rounded">  - 子内容</code>（2空格缩进）表示二级列表项</li>
-                  <li>• 支持的分类：特性/优化/修复 或 feature/improvement/fix</li>
-                  <li>• 图片：<code className="px-1 py-0.5 bg-gray-200 rounded">- 描述 ![图片说明](/uploads/xxx.jpg)</code></li>
-                  <li className="text-yellow-600">⚠️ 图片必须放在列表项中，如：<code>- 文字 ![图片](url)</code></li>
-                </ul>
-              </div>
             </section>
           </div>
         </div>
