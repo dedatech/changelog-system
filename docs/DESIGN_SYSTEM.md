@@ -42,6 +42,10 @@ v1.0.2: 添加图片功能
 
 ## 颜色系统
 
+### 主题模式
+
+系统支持**亮色主题**和**暗色主题**两种模式，用户可通过右上角按钮切换。
+
 ### 主色调
 
 | 用途 | 颜色类 | Hex | 说明 |
@@ -49,9 +53,12 @@ v1.0.2: 添加图片功能
 | 主渐变（起始） | `from-purple-600` | #9333EA | 紫色 |
 | 主渐变（结束） | `to-blue-600` | #2563EB | 蓝色 |
 | 主色（纯色） | `purple-600` | #9333EA | 用于标签、图标 |
-| 悬停背景 | `bg-purple-50` | #FAF5FF | 浅紫背景 |
+| 悬停背景（亮色） | `bg-purple-50` | #FAF5FF | 浅紫背景 |
+| 悬停背景（暗色） | `dark:bg-purple-900/30` | rgba(88, 28, 135, 0.3) | 暗色模式 |
 
 ### 文本颜色
+
+#### 亮色主题
 
 | 用途 | 颜色类 | Hex |
 |------|--------|-----|
@@ -62,13 +69,35 @@ v1.0.2: 添加图片功能
 | 辅助文本 | `text-gray-500` | #6B7280 |
 | 占位符 | `text-gray-400` | #9CA3AF |
 
-### 功能色
+#### 暗色主题
 
 | 用途 | 颜色类 | Hex |
 |------|--------|-----|
-| 错误 | `text-red-600` / `bg-red-50` | #DC2622 |
-| 成功 | `text-green-600` / `bg-green-50` | #16A34A |
-| 信息 | `text-blue-600` / `bg-blue-50` | #2563EB |
+| 主标题 | `dark:text-gray-100` | #F3F4F6 |
+| 副标题 | `dark:text-gray-200` | #E5E7EB |
+| 正文 | `dark:text-gray-300` | #D1D5DB |
+| 次要文本 | `dark:text-gray-400` | #9CA3AF |
+| 辅助文本 | `dark:text-gray-500` | #6B7280 |
+| 占位符 | `dark:text-gray-600` | #4B5563 |
+
+### 背景颜色
+
+| 用途 | 亮色主题 | 暗色主题 |
+|------|----------|----------|
+| 页面背景 | `bg-white` / `bg-gray-50` | `dark:bg-gray-900` |
+| 导航栏背景 | `bg-white/70` + `backdrop-blur` | `dark:bg-gray-800/70` + `backdrop-blur` |
+| 卡片背景 | `bg-white` | `dark:bg-gray-800` |
+| 输入框背景 | `bg-white` | `dark:bg-gray-700` |
+| 边框颜色 | `border-gray-200` | `dark:border-gray-700` |
+
+### 功能色
+
+| 用途 | 亮色主题 | 暗色主题 |
+|------|----------|----------|
+| 错误 | `text-red-600` / `bg-red-50` | `dark:text-red-400` / `dark:bg-red-900/20` |
+| 成功 | `text-green-600` / `bg-green-50` | `dark:text-green-400` / `dark:bg-green-900/20` |
+| 信息 | `text-blue-600` / `bg-blue-50` | `dark:text-blue-400` / `dark:bg-blue-900/20` |
+| 警告 | `text-yellow-600` / `bg-yellow-50` | `dark:text-yellow-400` / `dark:bg-yellow-900/20` |
 
 ---
 
@@ -291,12 +320,242 @@ className="px-2.5 py-1 text-xs font-medium rounded-full bg-white text-gray-600 h
 ## 页脚规范
 
 ```tsx
-<footer className="border-t border-purple-100 bg-white/50 mt-20">
-  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm">
+<footer className="border-t border-purple-100 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 mt-20">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 dark:text-gray-400 text-sm">
     <p>© {new Date().getFullYear()} · {config.site.title}</p>
   </div>
 </footer>
 ```
+
+---
+
+## 主题系统
+
+### 主题切换按钮
+
+**位置**：右上角固定定位，`fixed top-4 right-6`，`z-50`
+
+**样式**：
+```tsx
+<button className="fixed top-4 right-6 z-50 p-4 rounded-2xl
+  bg-white/90 dark:bg-gray-800/90
+  backdrop-blur-md
+  shadow-xl hover:shadow-2xl
+  transition-all duration-300
+  hover:scale-110 active:scale-95">
+  {theme === 'light' ? '🌙' : '☀️'}
+</button>
+```
+
+**图标逻辑**：
+- 亮色主题显示月亮图标（🌙），点击切换到暗色
+- 暗色主题显示太阳图标（☀️），点击切换到亮色
+
+**主题持久化**：
+- 使用 `localStorage` 保存用户偏好（key: `theme`）
+- 初始化时从 `localStorage` 读取，无则使用系统偏好
+
+### 主题过渡动画
+
+全局主题切换过渡效果（300ms）：
+
+```css
+* {
+  transition-property: color, background-color, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+**例外**（不参与过渡的元素）：
+- 图片加载状态
+- 骨架屏动画
+- 进度条
+
+### 主题实现文件
+
+- `components/ThemeProvider.tsx` - 主题上下文提供者
+- `components/ThemeToggle.tsx` - 主题切换按钮组件
+- `tailwind.config.js` - 配置 `darkMode: 'class'`
+- `app/globals.css` - 主题过渡动画和 `.dark` 样式
+
+---
+
+## 表单交互规范
+
+### 焦点状态
+
+**输入框和下拉框**（简洁风格）：
+```tsx
+className="... border border-gray-300 dark:border-gray-600
+  bg-white dark:bg-gray-700
+  text-gray-900 dark:text-gray-100
+  focus:border-purple-500 focus:outline-none
+  transition-colors"
+```
+
+- ❌ 不使用 `focus:ring`（避免紫黑双色边框）
+- ✅ 只改变边框颜色为紫色 `focus:border-purple-500`
+- ✅ 移除默认轮廓 `focus:outline-none`
+
+**按钮焦点**：
+```tsx
+className="... focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+```
+
+按钮可以保留 focus ring（因为按钮没有边框）。
+
+### 下拉框自定义样式
+
+**移除原生外观**：
+```tsx
+className="... appearance-none cursor-pointer"
+```
+
+**自定义下拉图标**：
+```tsx
+<div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+  <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+  </svg>
+</div>
+```
+
+**选项背景色**：
+```tsx
+<option className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+  选项文本
+</option>
+```
+
+---
+
+## UI/UX 动画规范
+
+### 产品标签动画
+
+**悬停效果**：
+```tsx
+className="... transition-all duration-300 transform
+  hover:scale-105 active:scale-95"
+```
+
+- 悬停时放大 5%
+- 点击时缩小 5%（反馈感）
+
+**产品切换标签**：
+- 选中：`bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg hover:shadow-xl`
+- 未选中：`hover:bg-purple-50 dark:hover:bg-gray-600 hover:border-purple-300 dark:hover:border-purple-500`
+
+### 版本卡片动画
+
+**淡入效果**：
+```tsx
+className="animate-fade-in"
+style={{ animationDelay: `${index * 100}ms` }}
+```
+
+每个版本卡片延迟 100ms 依次出现。
+
+**悬停效果**：
+```tsx
+className="... group hover:bg-purple-50/30 dark:hover:bg-gray-800/30
+  -mx-4 px-4 sm:mx-0 sm:px-0 rounded-xl
+  transition-all duration-300"
+```
+
+- 亮色：淡紫色背景
+- 暗色：深灰色背景
+- 移动端添加左右边距和圆角
+
+### 列表项动画
+
+**实心圆点**（一级列表）：
+```tsx
+className="... transition-all duration-300
+  group-hover/item:scale-125 group-hover/item:shadow-md"
+```
+
+悬停时圆点放大 25% 并显示阴影。
+
+### 按钮动画
+
+**主要按钮**：
+```tsx
+className="... shadow-md hover:shadow-lg
+  transition-all duration-300
+  hover:scale-[1.02] active:scale-95"
+```
+
+**次要按钮**：
+```tsx
+className="... hover:bg-gray-100 dark:hover:bg-gray-700
+  transition-colors"
+```
+
+### 图片动画
+
+**缩放效果**：
+```tsx
+className="... hover:scale-[1.02]
+  transition-all duration-300
+  hover:opacity-90 hover:shadow-xl
+  cursor-pointer"
+```
+
+### 导航栏增强
+
+**背景模糊**：
+```tsx
+className="... bg-white/70 dark:bg-gray-800/70
+  backdrop-blur-xl
+  shadow-md"
+```
+
+**效果**：
+- 半透明背景（70% 不透明度）
+- 毛玻璃模糊效果
+- 阴影增加层次感
+
+---
+
+## 配置动态加载
+
+系统配置采用**客户端动态加载**机制，实现配置修改实时生效：
+
+### 实现方式
+
+**服务端**（`app/page.tsx`）：
+```tsx
+export default async function HomePage() {
+  // 只获取版本数据
+  const versions = await getVersions();
+  return <ChangelogClient initialVersions={versions} />;
+}
+```
+
+**客户端**（`components/ChangelogClient.tsx`）：
+```tsx
+useEffect(() => {
+  async function loadConfig() {
+    const response = await fetch(getApiUrl('/api/config'));
+    const data = await response.json();
+    setConfig(data.config);
+  }
+  loadConfig();
+}, []);
+```
+
+### 优势
+
+- ✅ 配置修改后刷新页面即可生效
+- ✅ 无需重新编译项目
+- ✅ 支持配置实时预览
+
+### API 端点
+
+- `GET /api/config` - 获取完整配置
+- `PUT /api/config` - 更新配置（后台专用）
 
 ---
 
@@ -314,10 +573,22 @@ className="px-2.5 py-1 text-xs font-medium rounded-full bg-white text-gray-600 h
 ### 通用组件
 - `components/ImageLightbox.tsx` - 图片灯箱
 - `components/ImagePicker.tsx` - 图片选择器
+- `components/ThemeProvider.tsx` - 主题上下文提供者
+- `components/ThemeToggle.tsx` - 主题切换按钮
 
 ---
 
 ## 更新日志
+
+- **2026-01-20**: v1.1.0 - 添加暗色主题和 UI/UX 优化
+  - 新增暗色主题支持，包含完整的颜色系统规范
+  - 添加主题切换按钮规范（位置、样式、交互）
+  - 添加主题过渡动画规范（300ms 全局过渡）
+  - 优化表单交互规范（移除 focus ring，改用边框颜色变化）
+  - 添加下拉框自定义样式规范
+  - 完善 UI/UX 动画规范（悬停、缩放、阴影效果）
+  - 添加配置动态加载机制说明
+  - 更新所有组件的暗色主题样式
 
 - **2026-01-20**: 初始设计系统文档
   - 定义字体层级（版本标题、分类标题、一级列表、二级列表）
