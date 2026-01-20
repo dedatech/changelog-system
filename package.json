@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:backend": "next dev -p 3001",
+    "dev:backend": "next dev -p 3001 -H 0.0.0.0",
     "dev:frontend": "serve out -l 3000",
     "dev:both": "node scripts/start-both.js",
     "test:api": "node scripts/test-api.js",
