@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__take_screenshot",
+      "Bash(npm run build:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(npm install:*)",
+      "Bash(if:*)",
+      "Bash(then echo \"public/uploads/\")",
+      "Bash(else grep -q \"public/uploads/\" .gitignore)",
+      "Bash(fi:*)",
+      "Bash(test:*)",
+      "Bash(grep:*)",
+      "Bash(tree:*)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(ls:*)"
+    ]
+  }
+}

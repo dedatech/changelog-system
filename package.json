@@ -1,0 +1,52 @@
+{
+  "name": "changelog-system",
+  "version": "1.0.0",
+  "description": "A lightweight Changelog publishing system based on Next.js with static deployment",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:backend": "next dev -p 3001",
+    "dev:frontend": "serve out -l 3000",
+    "dev:both": "node scripts/start-both.js",
+    "test:api": "node scripts/test-api.js",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "node scripts/deploy-ssh.js",
+    "deploy:local": "node scripts/deploy-local.js",
+    "deploy:full": "npm run build && npm run deploy",
+    "deploy:local:full": "npm run build && npm run deploy:local",
+    "preview": "serve out -l 3000",
+    "backup": "node scripts/backup.js"
+  },
+  "dependencies": {
+    "@tiptap/extension-image": "^2.1.13",
+    "@tiptap/extension-link": "^2.1.13",
+    "@tiptap/extension-placeholder": "^2.1.13",
+    "@tiptap/react": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.344.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "sanitize-html": "^2.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/sanitize-html": "^2.9.0",
+    "autoprefixer": "^10.4.0",
+    "fs-extra": "^11.3.3",
+    "postcss": "^8.4.0",
+    "serve": "^14.2.5",
+    "sharp": "^0.33.0",
+    "ssh2-sftp-client": "^9.1.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

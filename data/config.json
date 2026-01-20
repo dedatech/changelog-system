@@ -1,0 +1,34 @@
+{
+  "site": {
+    "title": "Changelog",
+    "description": "产品更新日志 · 持续迭代中",
+    "domain": "https://changelog.yourdomain.com",
+    "logo": "/logo.png"
+  },
+  "admin": {
+    "username": "admin",
+    "password": "admin123"
+  },
+  "products": [
+    {
+      "id": "ide",
+      "name": "IDE",
+      "label": "IDE",
+      "enabled": true,
+      "icon": "💻",
+      "order": 1
+    },
+    {
+      "id": "jetbrains",
+      "name": "JetBrains",
+      "label": "JetBrains",
+      "enabled": true,
+      "icon": "🔌",
+      "order": 2
+    }
+  ],
+  "display": {
+    "itemsPerPage": 10,
+    "dateFormat": "YYYY-MM-DD"
+  }
+}
