@@ -29,7 +29,9 @@ export default function LoginPage() {
 
       if (data.success) {
         // 登录成功，跳转到管理首页
-        window.location.href = '/admin';
+        // 使用当前域名构建完整 URL，确保内网 IP 访问时正确跳转
+        const baseUrl = window.location.origin;
+        window.location.href = `${baseUrl}/admin`;
       } else {
         setError(data.error || '登录失败');
       }

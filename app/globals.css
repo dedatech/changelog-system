@@ -8,12 +8,24 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 15, 23, 42;
-    --background-end-rgb: 15, 23, 42;
-  }
+.dark {
+  --foreground-rgb: 243, 244, 246;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 15, 23, 42;
+}
+
+/* 平滑过渡主题切换 */
+* {
+  transition-property: color, background-color, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 排除不需要过渡的元素 */
+*,
+*::before,
+*::after {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
 }
 
 body {
@@ -24,6 +36,25 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  /* 使用系统字体栈，避免加载外部字体 */
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  /* 优化字体渲染 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 优化文本渲染性能 */
+  text-rendering: optimizeLegibility;
 }
 
 @layer utilities {
@@ -42,13 +73,25 @@ body {
   background: #f1f1f1;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 4px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 /* 富文本内容样式 */
@@ -126,6 +169,11 @@ body {
   font-size: 0.875em;
 }
 
+.dark .prose code {
+  background-color: #334155;
+  color: #f87171;
+}
+
 .prose pre code {
   background-color: transparent;
   color: inherit;
@@ -141,6 +189,14 @@ body {
   color: #2563eb;
 }
 
+.dark .prose a {
+  color: #60a5fa;
+}
+
+.dark .prose a:hover {
+  color: #3b82f6;
+}
+
 .prose blockquote {
   border-left: 4px solid #3b82f6;
   padding-left: 1rem;
@@ -152,4 +208,8 @@ body {
   border: none;
   border-top: 1px solid #e5e7eb;
   margin: 2rem 0;
+}
+
+.dark .prose hr {
+  border-top-color: #374151;
 }

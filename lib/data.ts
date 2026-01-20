@@ -164,7 +164,7 @@ export async function getConfig() {
     return {
       site: {
         title: 'Changelog',
-        description: '持续改进，不断进化',
+        description: '四季更迭，版本流转，记录产品生长的节律',
         domain: '',
         logo: '/logo.png',
       },

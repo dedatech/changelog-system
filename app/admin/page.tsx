@@ -96,33 +96,33 @@ export default function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">版本管理</h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">版本管理</h1>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 管理和发布更新日志
               </p>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/admin/config"
-                className="px-4 py-2 border border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition-colors"
+                className="px-4 py-2 border border-purple-600 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:shadow-md transition-all duration-300 transform hover:scale-105 active:scale-95"
               >
                 ⚙️ 系统配置
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:shadow-md transition-all duration-300 transform hover:scale-105 active:scale-95"
               >
                 登出
               </button>
               <Link
                 href="/admin/new"
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md"
               >
                 + 新建版本
               </Link>
@@ -157,11 +157,11 @@ export default function AdminPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {loading ? (
           <div className="text-center py-12">
-            <p className="text-gray-500">加载中...</p>
+            <p className="text-gray-500 dark:text-gray-400">加载中...</p>
           </div>
         ) : filteredVersions.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-            <p className="text-gray-500">
+          <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <p className="text-gray-500 dark:text-gray-400">
               {filter === 'all' ? '暂无版本记录' : `暂无${filter === 'draft' ? '草稿' : '已发布'}版本`}
             </p>
           </div>
@@ -196,8 +196,8 @@ function FilterButton({
       onClick={onClick}
       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
         active
-          ? 'bg-purple-100 text-purple-700'
-          : 'text-gray-600 hover:bg-gray-100'
+          ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
       }`}
     >
       {children}
@@ -217,19 +217,19 @@ function VersionCard({
   const statusLabel = version.status === 'published' ? '已发布' : '草稿';
   const statusColor =
     version.status === 'published'
-      ? 'bg-green-100 text-green-700'
-      : 'bg-gray-100 text-gray-700';
+      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   const toggleButtonText = version.status === 'published' ? '取消发布' : '发布';
   const toggleButtonColor = version.status === 'published'
-    ? 'text-gray-600 hover:bg-gray-50'
-    : 'text-green-600 hover:bg-green-50';
+    ? 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+    : 'text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20';
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+    <div className="group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-all duration-300 hover:border-purple-300 dark:hover:border-purple-600 transform hover:-translate-y-0.5">
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               {version.title}
             </h3>
             <span
@@ -238,7 +238,7 @@ function VersionCard({
               {statusLabel}
             </span>
           </div>
-          <div className="flex items-center gap-4 text-sm text-gray-600">
+          <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
             <span>
               {version.product} {version.version}
             </span>
@@ -254,19 +254,19 @@ function VersionCard({
         <div className="flex items-center gap-2 ml-4">
           <Link
             href={`/admin/edit/${version.id}`}
-            className="px-3 py-1.5 text-sm font-medium text-purple-600 hover:bg-purple-50 rounded transition-colors"
+            className="px-3 py-1.5 text-sm font-medium text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 hover:shadow-sm"
           >
             编辑
           </Link>
           <button
             onClick={() => onToggleStatus(version.id, version.status)}
-            className={`px-3 py-1.5 text-sm font-medium ${toggleButtonColor} rounded transition-colors`}
+            className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 hover:shadow-sm ${toggleButtonColor}`}
           >
             {toggleButtonText}
           </button>
           <button
             onClick={() => onDelete(version.id)}
-            className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded transition-colors"
+            className="px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 hover:shadow-sm"
           >
             删除
           </button>

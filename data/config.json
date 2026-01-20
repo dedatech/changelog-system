@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Changelog",
-    "description": "产品更新日志 · 持续迭代中",
+    "description": "四季更迭，版本流转，记录产品生长的节律",
     "domain": "https://changelog.yourdomain.com",
     "logo": "/logo.png"
   },
@@ -25,6 +25,14 @@
       "enabled": true,
       "icon": "🔌",
       "order": 2
+    },
+    {
+      "id": "cli",
+      "name": "CLI",
+      "label": "CLI",
+      "enabled": true,
+      "icon": "⚡",
+      "order": 3
     }
   ],
   "display": {
