@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import type { Version, ProductType } from '@/types/changelog';
 import type { Config } from '@/lib/data';
+import { getApiUrl } from '@/lib/config';
 import ThemeToggle from './ThemeToggle';
 
 // 动态导入图片灯箱组件，减少初始加载体积
@@ -14,26 +15,57 @@ const ImageLightbox = lazy(() =>
 
 type ChangelogClientProps = {
   initialVersions: Version[];
-  config: Config;
-  availableProducts: ProductType[];
 };
 
-export function ChangelogClient({ initialVersions, config, availableProducts }: ChangelogClientProps) {
+export function ChangelogClient({ initialVersions }: ChangelogClientProps) {
   const [allVersions] = useState<Version[]>(initialVersions);
-  const [selectedProduct, setSelectedProduct] = useState<ProductType>(availableProducts[0] || 'JetBrains');
+  const [config, setConfig] = useState<Config | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductType>('JetBrains');
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // 动态加载配置
+  useEffect(() => {
+    async function loadConfig() {
+      try {
+        const response = await fetch(getApiUrl('/api/config'));
+        const data = await response.json();
+        if (data.success) {
+          setConfig(data.config);
+          // 自动选择第一个启用的产品
+          const enabledProducts = data.config.products
+            .filter((p: any) => p.enabled)
+            .sort((a: any, b: any) => a.order - b.order);
+          if (enabledProducts.length > 0) {
+            setSelectedProduct(enabledProducts[0].name);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading config:', error);
+      }
+    }
+    loadConfig();
+  }, []);
 
   // 客户端筛选
   const filteredVersions = useMemo(() => {
     return allVersions.filter((v) => v.product === selectedProduct);
   }, [allVersions, selectedProduct]);
 
+  // 获取可用的产品列表
+  const availableProducts = config
+    ? config.products
+        .filter((p) => p.enabled)
+        .sort((a, b) => a.order - b.order)
+        .map((p) => p.name as ProductType)
+    : [];
+
   // 加载骨架屏组件
-  if (isLoading) {
+  if (isLoading || !config) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
-        <header className="border-b border-purple-100 bg-white/80 backdrop-blur-sm sticky top-0 z-10 shadow-sm">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <ThemeToggle />
+        <header className="border-b border-purple-100 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm sticky top-0 z-10 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-center gap-4">
               <div className="w-7 h-7 rounded-lg bg-gray-200 animate-pulse"></div>
