@@ -1,6 +1,6 @@
 {
   "name": "changelog-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight Changelog publishing system based on Next.js with static deployment",
   "private": true,
   "scripts": {
